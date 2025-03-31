@@ -75,3 +75,52 @@
 .downloadButtons button:hover {
   background-color: #0056b3;
 }
+
+/* Toast notification styles */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: white;
+  color: #333;
+  padding: 15px 30px;
+  border-radius: 8px;
+  font-size: 18px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: toast-in 0.5s forwards, toast-out 0.5s 2.5s forwards;
+  min-width: 250px;
+  max-width: 500px;
+  text-align: center;
+}
+
+.toast.success {
+  border-left: 8px solid #4caf50;
+}
+
+.toast.error {
+  border-left: 8px solid #f44336;
+}
+
+@keyframes toast-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toast-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}

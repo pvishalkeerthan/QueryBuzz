@@ -11,6 +11,7 @@ const QueryInput = ({ activeTab, tabs = [], updateQuery, updateResult, setTabs, 
   const activeTabData = tabs.find((tab) => tab.id === activeTab) || { query: "" };
   const [query, setQuery] = useState(activeTabData.query);
   const [theme, setTheme] = useState("light");
+  const [toastMessage, setToastMessage] = useState(null); 
 
   useEffect(() => {
     setQuery(activeTabData.query);
@@ -54,21 +55,31 @@ const QueryInput = ({ activeTab, tabs = [], updateQuery, updateResult, setTabs, 
     const result = mockDatabase(query);
     updateResult(result);
     addToQueryHistory(query);
+    showToast("Query executed successfully!");
   };
 
   const handleFormatQuery = () => {
     const formattedQuery = sqlFormatter(query);
     updateQuery(formattedQuery);
+    showToast("SQL formatted successfully!");
   };
 
   const handleCopy = () => {
     navigator.clipboard.writeText(query)
       .then(() => {
-        alert("SQL query copied to clipboard!");
+        showToast("SQL query copied to clipboard!");
       })
       .catch((error) => {
         console.error("Failed to copy: ", error);
+        showToast("Failed to copy SQL query!", "error");
       });
+  };
+
+  const showToast = (message, type = "success") => {
+    setToastMessage({ message, type });
+    setTimeout(() => {
+      setToastMessage(null); // Hide the toast after 3 seconds
+    }, 3000);
   };
 
   return (
@@ -113,6 +124,13 @@ const QueryInput = ({ activeTab, tabs = [], updateQuery, updateResult, setTabs, 
           quickSuggestions: true,
         }}
       />
+      
+      {/* Toast notification */}
+      {toastMessage && (
+        <div className={`${styles.toast} ${styles[toastMessage.type]}`}>
+          {toastMessage.message}
+        </div>
+      )}
     </div>
   );
 };

@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { FileText, Database } from "lucide-react";
 import styles from "./QueryHistory.module.css";
 
 const QueryHistory = ({ queryHistory }) => {
+  const [toastMessage, setToastMessage] = useState(null);
+
   const handleDownload = (format) => {
     if (queryHistory.length === 0) {
-      alert("No queries to download!");
+      setToastMessage({ message: "No queries to download!", type: "error" });
+      setTimeout(() => setToastMessage(null), 3000);
       return;
     }
 
@@ -21,6 +24,9 @@ const QueryHistory = ({ queryHistory }) => {
     link.href = URL.createObjectURL(fileBlob);
     link.download = `query_history.${format}`;
     link.click();
+
+    setToastMessage({ message: `${format.toUpperCase()} Downloaded Successfully!`, type: "success" });
+    setTimeout(() => setToastMessage(null), 3000);
   };
 
   return (
@@ -42,6 +48,12 @@ const QueryHistory = ({ queryHistory }) => {
           <Database className="w-4 h-4 mr-2" /> Download .SQL
         </button>
       </div>
+
+      {toastMessage && (
+        <div className={`${styles.toast} ${styles[toastMessage.type]}`}>
+          {toastMessage.message}
+        </div>
+      )}
     </div>
   );
 };

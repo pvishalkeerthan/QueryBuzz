@@ -19,6 +19,8 @@ const QueryResult = ({ activeTab, tabs }) => {
     currentPage * rowsPerPage
   );
 
+  const [toastMessage, setToastMessage] = useState(null);
+
   const updatePagination = (newPage, newRowsPerPage = rowsPerPage) => {
     setPagination((prev) => ({
       ...prev,
@@ -42,6 +44,9 @@ const QueryResult = ({ activeTab, tabs }) => {
     a.download = "query_result.csv";
     a.click();
     URL.revokeObjectURL(url);
+
+    setToastMessage({ message: "CSV Downloaded Successfully!", type: "success" }); 
+    setTimeout(() => setToastMessage(null), 3000); 
   };
 
   const downloadJSON = () => {
@@ -53,6 +58,9 @@ const QueryResult = ({ activeTab, tabs }) => {
     a.download = "query_result.json";
     a.click();
     URL.revokeObjectURL(url);
+
+    setToastMessage({ message: "JSON Downloaded Successfully!", type: "success" }); 
+    setTimeout(() => setToastMessage(null), 3000); 
   };
 
   useEffect(() => {
@@ -138,6 +146,13 @@ const QueryResult = ({ activeTab, tabs }) => {
             </button>
           </div>
         </>
+      )}
+
+      {/* Toast notification */}
+      {toastMessage && (
+        <div className={`${styles.toast} ${styles[toastMessage.type]}`}>
+          {toastMessage.message}
+        </div>
       )}
     </div>
   );
