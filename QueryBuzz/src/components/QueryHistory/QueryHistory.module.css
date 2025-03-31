@@ -1,0 +1,77 @@
+.queryHistoryContainer {
+  padding: 20px;
+  max-height: 60vh;
+  overflow-y: auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.queryHistoryContainer h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.queryHistoryContainer ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.queryHistoryContainer li {
+  padding: 12px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.queryHistoryContainer li:last-child {
+  border-bottom: none;
+}
+
+.queryHistoryContainer p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 8px;
+}
+
+.queryHistoryContainer pre {
+  background-color: #f4f4f4;
+  padding: 12px;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  color: #333;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin: 0;
+  overflow-x: auto;
+}
+
+.queryHistoryContainer li:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+
+.queryHistoryContainer li:active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.downloadButtons {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.downloadButtons button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.downloadButtons button:hover {
+  background-color: #0056b3;
+}
