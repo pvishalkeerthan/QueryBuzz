@@ -3,7 +3,7 @@ import MonacoEditor from "@monaco-editor/react";
 import { Play, Code2, Copy } from "lucide-react";
 import sqlFormatter from "../../utils/sqlFormatter";
 import styles from "./QueryInput.module.css";
-import mockDatabase from "../../database/mockdatabase";
+import mockDatabase from "../../database/mockDatabase";
 import QueryDropDown from "../QueryDropDown/QueryDropDown";
 import TabManager from "../TabManager/TabManager";
 
