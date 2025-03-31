@@ -111,6 +111,42 @@ h3 {
   font-size: 15px;
 }
 
+.paginationControls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.paginationControls button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.paginationControls button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.paginationControls span {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.paginationControls select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+
 @media (max-width: 768px) {
   .resultContainer {
     margin: 0 5px 20px;
