@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./QueryResult.module.css";
-import { FileJson, FileSpreadsheet } from "lucide-react";
+import { FileJson, FileSpreadsheet, ChevronLeft, ChevronRight } from "lucide-react";
 
 const QueryResult = ({ activeTab, tabs }) => {
   const activeTabData = tabs.find((tab) => tab.id === activeTab) || {};
@@ -127,14 +127,14 @@ const QueryResult = ({ activeTab, tabs }) => {
               onClick={() => updatePagination(Math.max(currentPage - 1, 1))}
               disabled={currentPage === 1}
             >
-              ◀ Prev
+              <ChevronLeft />
             </button>
             <span>Page {currentPage} of {totalPages}</span>
             <button 
               onClick={() => updatePagination(Math.min(currentPage + 1, totalPages))}
               disabled={currentPage === totalPages}
             >
-              Next ▶
+              <ChevronRight />
             </button>
           </div>
         </>

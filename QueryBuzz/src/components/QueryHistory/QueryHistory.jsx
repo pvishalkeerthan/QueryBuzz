@@ -1,4 +1,5 @@
 import React from "react";
+import { FileText, Database } from "lucide-react";
 import styles from "./QueryHistory.module.css";
 
 const QueryHistory = ({ queryHistory }) => {
@@ -34,8 +35,12 @@ const QueryHistory = ({ queryHistory }) => {
         ))}
       </ul>
       <div className={styles.downloadButtons}>
-        <button onClick={() => handleDownload("txt")}>📜 Download .TXT</button>
-        <button onClick={() => handleDownload("sql")}>🗄️ Download .SQL</button>
+        <button onClick={() => handleDownload("txt")}>
+          <FileText className="w-4 h-4 mr-2" /> Download .TXT
+        </button>
+        <button onClick={() => handleDownload("sql")}>
+          <Database className="w-4 h-4 mr-2" /> Download .SQL
+        </button>
       </div>
     </div>
   );

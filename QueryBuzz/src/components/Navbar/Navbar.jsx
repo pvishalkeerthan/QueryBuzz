@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import styles from "./Navbar.module.css";
-import QueryHistory from "../QueryHistory/QueryHistory";
+import React, { useState } from 'react';
+import { Database, PenSquare, History, X } from 'lucide-react';
+import styles from './Navbar.module.css';
+import QueryHistory from '../QueryHistory/QueryHistory';
 
 const Navbar = ({ queryHistory, handleExecuteQuery }) => {
   const [activeButton, setActiveButton] = useState("editor");
@@ -23,7 +24,8 @@ const Navbar = ({ queryHistory, handleExecuteQuery }) => {
   return (
     <header className={styles.appHeader}>
       <div className={styles.logoContainer}>
-        <span className={styles.logoIcon}>📄</span>
+        <Database className={styles.logoIcon} 
+          size={32}/>
         <h1>QueryBuzz</h1>
       </div>
       <div className={styles.navButtons}>
@@ -33,7 +35,7 @@ const Navbar = ({ queryHistory, handleExecuteQuery }) => {
           }`}
           onClick={() => handleButtonClick("editor")}
         >
-          <span className={styles.icon}>📝</span>
+          <PenSquare className={styles.icon} />
           SQL Editor
         </button>
         <button
@@ -42,7 +44,7 @@ const Navbar = ({ queryHistory, handleExecuteQuery }) => {
           }`}
           onClick={() => handleButtonClick("history")}
         >
-          <span className={styles.icon}>⏱️</span>
+          <History className={styles.icon} />
           History
         </button>
       </div>
@@ -54,7 +56,7 @@ const Navbar = ({ queryHistory, handleExecuteQuery }) => {
             onClick={(e) => e.stopPropagation()}
           >
             <button className={styles.closeButton} onClick={handleClosePopup}>
-              X
+              <X />
             </button>
             <QueryHistory queryHistory={queryHistory} />
           </div>
