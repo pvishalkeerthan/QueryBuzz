@@ -15,6 +15,10 @@ Check out the live demo of **QueryBuzz**:
 ## Architecture
 View Project Architecture [here](https://github.com/user-attachments/assets/e61d44bb-3f10-41f8-895f-701bdfbc2272)
 
+## Video
+
+https://github.com/user-attachments/assets/da6c11a5-34c6-4170-9c8e-9f1fddf91a93
+
 ---
 
 ## 🛠️ Tech Stack
