@@ -12,6 +12,9 @@ Check out the live demo of **QueryBuzz**:
 
 <img width="950" alt="image" src="https://github.com/user-attachments/assets/3da3ec24-07b0-4d66-b363-02877f1d30e2" />
 
+## Architecture
+View Project Architecture [here](https://github.com/user-attachments/assets/e61d44bb-3f10-41f8-895f-701bdfbc2272)
+
 ---
 
 ## 🛠️ Tech Stack
