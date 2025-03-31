@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styles from "./QueryDropDown.module.css";
 
 const sampleQueries = [
@@ -59,9 +59,14 @@ const sampleQueries = [
 ];
 
 const QueryDropDown = ({ updateQuery }) => {
-  const handleQuerySelection = (selectedQueryExample) => {
-    updateQuery(selectedQueryExample);
-  };
+  const handleQuerySelection = useCallback(
+    (selectedQueryExample) => {
+      if (selectedQueryExample) {
+        updateQuery(selectedQueryExample);
+      }
+    },
+    [updateQuery]
+  );
 
   return (
     <div className={styles.queryDropdownContainer}>

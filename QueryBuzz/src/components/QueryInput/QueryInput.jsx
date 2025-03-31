@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import MonacoEditor from "@monaco-editor/react";
 import { Play, Code2, Copy } from "lucide-react";
 import sqlFormatter from "../../utils/sqlFormatter";
@@ -11,17 +11,57 @@ const QueryInput = ({ activeTab, tabs = [], updateQuery, updateResult, setTabs, 
   const activeTabData = tabs.find((tab) => tab.id === activeTab) || { query: "" };
   const [query, setQuery] = useState(activeTabData.query);
   const [theme, setTheme] = useState("light");
-  const [toastMessage, setToastMessage] = useState(null); 
+  const [toastMessage, setToastMessage] = useState(null);
 
+  // Memoize functions to prevent unnecessary re-renders
+  const handleEditorChange = useCallback((value) => {
+    setQuery(value);
+    updateQuery(value);
+  }, [updateQuery]);
+
+  const handleRunQuery = useCallback(() => {
+    const result = mockDatabase(query);
+    updateResult(result);
+    addToQueryHistory(query);
+    showToast("Query executed successfully!");
+  }, [query, updateResult, addToQueryHistory]);
+
+  const handleFormatQuery = useCallback(() => {
+    const formattedQuery = sqlFormatter(query);
+    updateQuery(formattedQuery);
+    showToast("SQL formatted successfully!");
+  }, [query, updateQuery]);
+
+  const handleCopy = useCallback(() => {
+    navigator.clipboard.writeText(query)
+      .then(() => {
+        showToast("SQL query copied to clipboard!");
+      })
+      .catch((error) => {
+        console.error("Failed to copy: ", error);
+        showToast("Failed to copy SQL query!", "error");
+      });
+  }, [query]);
+
+  const showToast = useCallback((message, type = "success") => {
+    setToastMessage({ message, type });
+    setTimeout(() => {
+      setToastMessage(null); // Hide the toast after 3 seconds
+    }, 3000);
+  }, []);
+
+  // Update query when active tab or tabs change
   useEffect(() => {
     setQuery(activeTabData.query);
   }, [activeTab, tabs]);
 
+  // Update theme when it changes in the document
   useEffect(() => {
     const currentTheme = document.documentElement.getAttribute("data-theme");
     setTheme(currentTheme || "light");
   }, []);
 
+  // Handle keyboard shortcuts (memoize to prevent unnecessary re-renders)
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.ctrlKey) {
@@ -44,43 +84,7 @@ const QueryInput = ({ activeTab, tabs = [], updateQuery, updateResult, setTabs, 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [query]);
-
-  const handleEditorChange = (value) => {
-    setQuery(value);
-    updateQuery(value);
-  };
-
-  const handleRunQuery = () => {
-    const result = mockDatabase(query);
-    updateResult(result);
-    addToQueryHistory(query);
-    showToast("Query executed successfully!");
-  };
-
-  const handleFormatQuery = () => {
-    const formattedQuery = sqlFormatter(query);
-    updateQuery(formattedQuery);
-    showToast("SQL formatted successfully!");
-  };
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(query)
-      .then(() => {
-        showToast("SQL query copied to clipboard!");
-      })
-      .catch((error) => {
-        console.error("Failed to copy: ", error);
-        showToast("Failed to copy SQL query!", "error");
-      });
-  };
-
-  const showToast = (message, type = "success") => {
-    setToastMessage({ message, type });
-    setTimeout(() => {
-      setToastMessage(null); // Hide the toast after 3 seconds
-    }, 3000);
-  };
+  }, [handleRunQuery, handleFormatQuery, handleCopy]);
 
   return (
     <div className={`${styles.queryInputContainer} ${styles[theme]}`}>

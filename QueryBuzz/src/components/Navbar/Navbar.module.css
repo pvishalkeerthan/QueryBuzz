@@ -73,7 +73,6 @@
   outline: none;
 }
 
-/* Modal Overlay */
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -87,7 +86,6 @@
   z-index: 1000;
 }
 
-/* Modal Content */
 .modalContent {
   background: white;
   padding: 20px;
@@ -113,7 +111,6 @@
   text-decoration: underline;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .appHeader {
     flex-direction: column;

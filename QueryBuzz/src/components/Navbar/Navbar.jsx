@@ -1,31 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Database, PenSquare, History, X } from 'lucide-react';
 import styles from './Navbar.module.css';
 import QueryHistory from '../QueryHistory/QueryHistory';
 
-const Navbar = ({ queryHistory, handleExecuteQuery }) => {
+const Navbar = React.memo(({ queryHistory, handleExecuteQuery }) => {
   const [activeButton, setActiveButton] = useState("editor");
   const [showHistoryPopup, setShowHistoryPopup] = useState(false);
 
-  const handleButtonClick = (section) => {
+  const handleButtonClick = useCallback((section) => {
     if (section === "history") {
       setShowHistoryPopup(true);
     } else {
       setShowHistoryPopup(false);
     }
     setActiveButton(section);
-  };
+  }, []);
 
-  const handleClosePopup = () => {
+  const handleClosePopup = useCallback(() => {
     setShowHistoryPopup(false);
     setActiveButton("editor");
-  };
+  }, []);
 
   return (
     <header className={styles.appHeader}>
       <div className={styles.logoContainer}>
-        <Database className={styles.logoIcon} 
-          size={32}/>
+        <Database className={styles.logoIcon} size={32} />
         <h1>QueryBuzz</h1>
       </div>
       <div className={styles.navButtons}>
@@ -64,6 +63,6 @@ const Navbar = ({ queryHistory, handleExecuteQuery }) => {
       )}
     </header>
   );
-};
+});
 
 export default Navbar;
